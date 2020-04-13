@@ -15,7 +15,25 @@
 typedef signed char int8_t;
 typedef unsigned short uint16_t;
 #endif
-#ifndef __cplusplus  // 据说VC都没有stdbool
+#ifndef __cplusplus  // 据说VC都没有stdbool.h，不用C++编译，自己定义bool
+typedef int bool;
+#define true 1
+#define false 0
+#endif
+#endif
+#else  // 其他的编译器都好说
+#include <stdint.h>
+#ifndef __cplusplus  // 不用C++编译，需要stdbool.h里的bool
+#include <stdbool.h>
+#endif
+#endif
+
+// =============================================================================
+// 7种方块的4旋转状态（4位为一行）
+static const uint16_t gs_uTetrisTable[7][4] = { { 0x00F0U, 0x2222U, 0x00F0U,
+		0x2222U },  // I型
+		{ 0x0072U, 0x0262U, 0x0270U, 0x0232U },  // T型
+		{ 0x0223U, 0x0074U, 0x0622U, 0x0170U },  // L型
 		{ 0x0226U, 0x0470U, 0x0322U, 0x0071U },  // J型
 		{ 0x0063U, 0x0264U, 0x0063U, 0x0264U },  // Z型
 		{ 0x006CU, 0x0462U, 0x006CU, 0x0462U },  // S型

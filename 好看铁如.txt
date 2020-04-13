@@ -1,33 +1,13 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <time.h>
-#include <conio.h>
-#include <windows.h>
-
-#ifdef _MSC_VER  // M$的编译器要给予特殊照顾
-#if _MSC_VER <= 1200  // VC6及以下版本
-#error 你是不是还在用VC6？！
-#else  // VC6以上版本
-#if _MSC_VER >= 1600  // 据说VC10及以上版本有stdint.h了
+#include 
 #include <stdint.h>
 #else  // VC10以下版本，自己定义int8_t和uint16_t
 typedef signed char int8_t;
 typedef unsigned short uint16_t;
 #endif
-#ifndef __cplusplus  // 据说VC都没有stdbool
-		{ 0x0226U, 0x0470U, 0x0322U, 0x0071U },  // J型
-		{ 0x0063U, 0x0264U, 0x0063U, 0x0264U },  // Z型
-		{ 0x006CU, 0x0462U, 0x006CU, 0x0462U },  // S型
-		{ 0x0660U, 0x0660U, 0x0660U, 0x0660U }   // O型
-};
-
-// =============================================================================
-// 初始状态的游戏池
-// 每个元素表示游戏池的一行，下标大的是游戏池底部
-// 两端各置2个1，底部2全置为1，便于进行碰撞检测
-// 这样一来游戏池的宽度为12列
-// 如果想要传统的10列，只需多填两个1即可（0xE007），当然显示相关部分也要随之改动
+#ifndef __cplusplus  // 据说VC都没有stdbool.h，不用C++编译，自己定义bool
+typedef int bool;
+#define true 1
+#define false 0即可（0xE007），当然显示相关部分也要随之改动
 // 当某个元素为0xFFFFU时，说明该行已被填满
 // 顶部4行用于给方块，不显示出来
 // 再除去底部2行，显示出来的游戏池高度为22行
